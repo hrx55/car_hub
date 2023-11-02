@@ -8,11 +8,7 @@ import { CustomButton } from ".";
 import { calculateCarRent, generateCarImageUrl } from "@/utils";
 import { CarDetails } from ".";
 
-interface CarCardProps {
-  car: CarProps;
-}
-
-const CarCard = ({ car }: CarCardProps) => {
+const CarCard = ({ car }: { car: CarProps }) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
 
   const [isOpen, setIsOpen] = useState(false);

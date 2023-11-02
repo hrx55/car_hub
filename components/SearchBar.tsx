@@ -18,9 +18,15 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   </button>
 );
 
-const SearchBar = () => {
-  const [manufacturer, setManufacturer] = useState("");
-  const [model, setModel] = useState("");
+const SearchBar = ({
+  initialModel,
+  initialManufacturer,
+}: {
+  initialModel: string;
+  initialManufacturer: string;
+}) => {
+  const [manufacturer, setManufacturer] = useState(initialManufacturer || "");
+  const [model, setModel] = useState(initialModel || "");
 
   const router = useRouter();
 

@@ -7,9 +7,14 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CustomFilterProps } from "@/types";
 import { updateSearchParams } from "@/utils";
 
-const CustomFilter = ({ title, options }: CustomFilterProps) => {
+const CustomFilter = ({ title, initialValue, options }: CustomFilterProps) => {
   const router = useRouter();
-  const [selected, setSelected] = useState(options[0]);
+
+  const foundInitialValue = options.find(
+    (option: any) => option.value.toLowerCase() === initialValue.toLowerCase()
+  );
+
+  const [selected, setSelected] = useState(foundInitialValue || options[0]);
 
   const handleUpdateParams = (e: { title: string; value: string }) => {
     const newPathName = updateSearchParams(title, e.value.toLowerCase());

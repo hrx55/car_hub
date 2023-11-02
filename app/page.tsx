@@ -2,8 +2,13 @@ import { Hero, CustomFilter, SearchBar, CarCard, ShowMore } from "@/components";
 import Image from "next/image";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
+import { CarProps } from "@/types";
 
-export default async function Home({ searchParams }) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Record<string, any>;
+}) {
   const allCars = await fetchCars({
     manufacturer: searchParams.manufacturer || "",
     year: searchParams.year || 2023,
@@ -23,18 +28,32 @@ export default async function Home({ searchParams }) {
           <p>Explore the cars you might like</p>
         </div>
         <div className="home__filters">
-          <SearchBar />
+          <SearchBar
+            initialManufacturer={searchParams.manufacturer}
+            initialModel={searchParams.model}
+          />
           <div className="home__filter-container">
-            <CustomFilter title="fuel" options={fuels} />
-            <CustomFilter title="year" options={yearsOfProduction} />
+            <CustomFilter
+              title="fuel"
+              options={fuels}
+              initialValue={searchParams.fuel}
+            />
+            <CustomFilter
+              title="year"
+              options={yearsOfProduction}
+              initialValue={searchParams.year}
+            />
           </div>
         </div>
 
         {!isDataEmpty ? (
           <section>
             <div className="home__cars-wrapper">
-              {allCars?.map((car) => (
-                <CarCard car={car} />
+              {allCars?.map((car: CarProps, index) => (
+                <CarCard
+                  key={`${car.make}-${car.model}-${car.year}-${index}`}
+                  car={car}
+                />
               ))}
             </div>
 
