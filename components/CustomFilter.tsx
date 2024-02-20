@@ -10,9 +10,11 @@ import { updateSearchParams } from "@/utils";
 const CustomFilter = ({ title, initialValue, options }: CustomFilterProps) => {
   const router = useRouter();
 
-  const foundInitialValue = options.find(
-    (option: any) => option.value.toLowerCase() === initialValue.toLowerCase()
-  );
+  const foundInitialValue =
+    initialValue &&
+    options.find(
+      (option: any) => option.value.toLowerCase() === initialValue.toLowerCase()
+    );
 
   const [selected, setSelected] = useState(foundInitialValue || options[0]);
 
